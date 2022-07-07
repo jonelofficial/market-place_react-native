@@ -10,10 +10,10 @@ import {
   View,
 } from "react-native";
 
-import AppFormCheckbox from "../components/forms/AppFormCheckbox";
+import FormCheckbox from "../components/forms/FormCheckbox";
 import AppHeading from "../components/AppHeading";
 import AppText from "../components/AppText";
-import AppFormField from "../components/forms/AppFormField";
+import FormField from "../components/forms/FormField";
 import SubmitButton from "../components/forms/SubmitButton";
 import Icon from "../components/Icon";
 import Screen from "../components/Screen";
@@ -70,7 +70,7 @@ function LoginScreen(props) {
             <View style={styles.form}>
               <FormProvider {...methods} onSubmit={onSubmit}>
                 <AppText style={styles.subtext}>Email</AppText>
-                <AppFormField
+                <FormField
                   name="email"
                   style={styles.input}
                   autoCapitalize="none"
@@ -82,7 +82,7 @@ function LoginScreen(props) {
                 <Spacer style={{ height: 20 }} />
 
                 <AppText style={styles.subtext}>Password</AppText>
-                <AppFormField
+                <FormField
                   name="password"
                   style={styles.input}
                   autoCapitalize="none"
@@ -94,7 +94,7 @@ function LoginScreen(props) {
                 <Spacer style={{ height: 20 }} />
 
                 <View style={styles.checkboxWrapper}>
-                  <AppFormCheckbox title="Remember me" name="rememberLogin" />
+                  <FormCheckbox title="Remember me" name="rememberLogin" />
                   <View style={styles.forgotPassword}>
                     <AppText style={styles.subtext}>Forgot password</AppText>
                   </View>

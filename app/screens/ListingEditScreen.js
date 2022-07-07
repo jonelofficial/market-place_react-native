@@ -1,13 +1,15 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import AppButton from "../components/AppButton";
 
-import AppFormField from "../components/forms/AppFormField";
-import AppFormPicker from "../components/forms/AppFormPicker";
+import AppButton from "../components/AppButton";
+import FormField from "../components/forms/FormField";
+import FormImagePicker from "../components/forms/FormImagePicker";
+import FormPicker from "../components/forms/FormPicker";
 import SubmitButton from "../components/forms/SubmitButton";
 import Screen from "../components/Screen";
 import { listingEditSchema } from "../config/schema";
+import useLocation from "../hooks/useLocation";
 
 const categories = [
   { label: "Furniture", value: 1 },
@@ -16,9 +18,18 @@ const categories = [
 ];
 
 function ListingEditScreen(props) {
+  const location = useLocation();
+
   const methods = useForm({
     resolver: yupResolver(listingEditSchema),
     mode: "onTouched",
+    defaultValues: {
+      title: "",
+      price: "",
+      description: "",
+      category: null,
+      images: [],
+    },
   });
 
   const [category, setCategory] = useState();
@@ -34,16 +45,18 @@ function ListingEditScreen(props) {
   return (
     <Screen>
       <FormProvider {...methods} onSubmit={onSubmit}>
-        <AppFormField name="title" placeholder="Title" maxLength={255} />
+        <FormImagePicker name="images" />
 
-        <AppFormField
+        <FormField name="title" placeholder="Title" maxLength={255} />
+
+        <FormField
           name="price"
           placeholder="Price"
           keyboardType="numeric"
           maxLength={8}
         />
 
-        <AppFormPicker
+        <FormPicker
           items={categories}
           placeholder="Category"
           name="category"
@@ -51,12 +64,13 @@ function ListingEditScreen(props) {
           onSelectItem={(item) => setCategory(item)}
         />
 
-        <AppFormField
+        <FormField
           name="description"
           placeholder="Description"
           maxLength={255}
           numberOfLines={3}
           multiline
+          textStyle={{ textAlignVertical: "top" }}
         />
 
         <SubmitButton title="Post" />

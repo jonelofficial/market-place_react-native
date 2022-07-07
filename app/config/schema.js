@@ -6,8 +6,9 @@ export const listingEditSchema = Yup.object().shape({
     .matches(/^[0-9]+$/, "Must be only digits")
     .required()
     .label("Price"),
-  category: Yup.object().required().label("Category"),
+  category: Yup.object().nullable().required().label("Category"),
   description: Yup.string().required().label("Description"),
+  images: Yup.array().min(1, "Please select at least one image"),
 });
 
 export const registerSchema = Yup.object().shape({

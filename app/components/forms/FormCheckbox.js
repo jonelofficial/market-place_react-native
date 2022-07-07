@@ -6,7 +6,7 @@ import AppText from "../AppText";
 import defaultStyle from "../../config/styles";
 import { Controller, useFormContext } from "react-hook-form";
 
-function AppFormCheckbox({ title, name }) {
+function FormCheckbox({ title, name }) {
   const [isChecked, setChecked] = useState(false);
 
   const {
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppFormCheckbox;
+export default FormCheckbox;

@@ -1,59 +1,65 @@
-import { useEffect, useState } from "react";
-import * as ImagePicker from "expo-image-picker";
-import { Button, Image } from "react-native";
-
-import AppPicker from "./app/components/AppPicker";
-import AppTextInput from "./app/components/AppTextInput";
-import Card from "./app/components/Card";
-import ListItem from "./app/components/lists/ListItem";
-import ListItemDeleteAction from "./app/components/lists/ListItemDeleteAction";
+import React from "react";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Screen from "./app/components/Screen";
-import AccountScreen from "./app/screens/AccountScreen";
-import ListingDetailsScreen from "./app/screens/ListingDetailsScreen";
-import ListingEditScreen from "./app/screens/ListingEditScreen";
-import ListingScreen from "./app/screens/ListingScreen";
-import LoginScreen from "./app/screens/LoginScreen";
-import MessagesScreen from "./app/screens/MessagesScreen";
-import RegisterScreen from "./app/screens/RegisterScreen";
-import ViewImageScreen from "./app/screens/ViewImageScreen";
-import WelcomeScreen from "./app/screens/WelcomeScreen";
-import ImageInput from "./app/components/ImageInput";
-import ImageInputList from "./app/components/ImageInputList";
+import AppText from "./app/components/AppText";
+import { Button } from "react-native";
 
-export default function App() {
-  const [imageUris, setImageUris] = useState([]);
-  const handleAdd = (uri) => {
-    setImageUris([...imageUris, uri]);
-  };
-  const handleRemove = (uri) => {
-    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
-  };
+const Link = () => {
+  const navigation = useNavigation();
   return (
-    <Screen>
-      {/* <LoginScreen /> */}
-      {/* <WelcomeScreen /> */}
-      {/* <ViewImageScreen /> */}
-      {/* <ListingScreen /> */}
-      {/* <ListingDetailsScreen /> */}
-      {/* <AccountScreen /> */}
-      {/* <MessagesScreen /> */}
+    <Button
+      title="Go to tweet details"
+      onPress={() => navigation.navigate("TweetDetails")}
+    />
+  );
+};
 
-      {/* <ListingEditScreen /> */}
-      {/* <RegisterScreen /> */}
-      {/* <Button title="Select Image" onPress={selectImage} />
-      <Image
-        source={{ uri: imageUri }}
-        style={{ width: "100%", height: 300 }}
-      /> */}
-      {/* <ImageInput
-        imageUri={imageUri}
-        onChangeImage={(uri) => setImageUri(uri)}
-      /> */}
-      <ImageInputList
-        imageUris={imageUris}
-        onAddImage={handleAdd}
-        onRemoveImag={handleRemove}
-      />
-    </Screen>
+const Tweets = ({ navigation }) => (
+  <Screen>
+    <AppText>Tweets</AppText>
+    <Button
+      title="View Tweet"
+      onPress={() => navigation.navigate("TweetDetails", { id: 1 })}
+    />
+    {/* <Link /> */}
+  </Screen>
+);
+
+const TweetDetails = ({ route }) => (
+  <Screen>
+    <AppText>Tweet Details {route.params.id}</AppText>
+  </Screen>
+);
+
+const Account = () => (
+  <Screen>
+    <AppText>Account</AppText>
+  </Screen>
+);
+
+const Stack = createNativeStackNavigator();
+
+const Tab = createBottomTabNavigator();
+
+const TabNavigator = () => (
+  <Tab.Navigator>
+    <Tab.Screen name="Feed" component={Tweets} />
+    <Tab.Screen name="Account" component={Account} />
+  </Tab.Navigator>
+);
+
+const StackNavigator = () => (
+  <Stack.Navigator screenOptions={{}}>
+    <Stack.Screen name="Tweets" component={Tweets} />
+    <Stack.Screen name="TweetDetails" component={TweetDetails} />
+  </Stack.Navigator>
+);
+export default function App() {
+  return (
+    <NavigationContainer>
+      <TabNavigator />
+    </NavigationContainer>
   );
 }

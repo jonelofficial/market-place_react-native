@@ -4,9 +4,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Controller, useFormContext } from "react-hook-form";
 
 import defaultStyle from "../../config/styles";
-import AppText from "../../components/AppText";
+import ErrorMessage from "./ErrorMessage";
 
-function AppFormField({ name, icon, style, ...otherProps }) {
+function FormField({ name, icon, style, textStyle, ...otherProps }) {
   const {
     formState: { errors },
     control,
@@ -31,15 +31,13 @@ function AppFormField({ name, icon, style, ...otherProps }) {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              style={defaultStyle.text}
+              style={[defaultStyle.text, textStyle]}
               {...otherProps}
             />
           )}
         />
       </View>
-      {errors[name] && (
-        <AppText style={styles.error}>{errors[name].message}</AppText>
-      )}
+      {errors[name] && <ErrorMessage message={errors[name].message} />}
     </>
   );
 }
@@ -57,15 +55,10 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
   },
-  error: {
-    color: defaultStyle.colors.danger,
-    fontSize: 14,
-    marginLeft: 15,
-  },
   errorBox: {
     borderWidth: 2,
     borderColor: defaultStyle.colors.danger,
   },
 });
 
-export default AppFormField;
+export default FormField;

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import AppPicker from "../AppPicker";
 
-function AppFormPicker({
+function FormPicker({
   icon,
   style,
   placeholder,
@@ -32,4 +32,4 @@ function AppFormPicker({
   );
 }
 
-export default AppFormPicker;
+export default FormPicker;
