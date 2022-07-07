@@ -7,17 +7,16 @@ import Screen from "../components/Screen";
 import Spacer from "../components/Spacer";
 import colors from "../config/colors";
 
-function ListingDetailsScreen(props) {
+function ListingDetailsScreen({ route }) {
+  const item = route.params;
+  console.log(item);
   return (
-    <Screen>
-      <Image
-        style={styles.image}
-        source={require("../assets/products/Offwhite.jpg")}
-      />
+    <>
+      <Image style={styles.image} source={item.image} />
       <View style={styles.details}>
-        <AppHeading style={styles.title}>J1 high x off-white</AppHeading>
+        <AppHeading style={styles.title}>{item.title}</AppHeading>
         <Spacer style={{ height: 10 }} />
-        <AppText style={styles.subTitle}>$100</AppText>
+        <AppText style={styles.subTitle}>{item.subTitle}</AppText>
         <Spacer style={{ height: 20 }} />
 
         <View style={styles.userDetails}>
@@ -28,7 +27,7 @@ function ListingDetailsScreen(props) {
           />
         </View>
       </View>
-    </Screen>
+    </>
   );
 }
 const styles = StyleSheet.create({

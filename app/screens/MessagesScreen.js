@@ -42,7 +42,7 @@ function MessagesScreen(props) {
     setMessages(newMessages);
   };
   return (
-    <Screen>
+    <>
       <FlatList
         data={messages}
         keyExtractor={(messages) => messages.id.toString()}
@@ -61,7 +61,7 @@ function MessagesScreen(props) {
         refreshing={refreshing}
         onRefresh={() => setMessages(initialMessages)}
       />
-    </Screen>
+    </>
   );
 }
 

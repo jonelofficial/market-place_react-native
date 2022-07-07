@@ -1,14 +1,18 @@
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import colors from "../config/colors";
 import AppHeading from "./AppHeading";
 import AppText from "./AppText";
-import Screen from "./Screen";
 import Spacer from "./Spacer";
 
-function Card({ image, title, subTitle }) {
+function Card({ image, title, subTitle, onPress }) {
   return (
-    <Screen>
+    <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
         <Image style={styles.image} source={image} />
         <View style={styles.details}>
@@ -19,7 +23,7 @@ function Card({ image, title, subTitle }) {
           <AppText style={styles.subTitle}>{subTitle}</AppText>
         </View>
       </View>
-    </Screen>
+    </TouchableWithoutFeedback>
   );
 }
 const styles = StyleSheet.create({
@@ -27,6 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 20,
     overflow: "hidden",
+    marginVertical: 10,
   },
   image: {
     width: "100%",

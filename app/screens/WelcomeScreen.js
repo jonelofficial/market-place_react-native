@@ -3,8 +3,9 @@ import AppButton from "../components/AppButton";
 
 import Screen from "../components/Screen";
 import defaultStyle from "../config/styles";
+import routes from "../navigation/routes";
 
-function WelcomeScreen(props) {
+function WelcomeScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <ImageBackground
@@ -20,11 +21,17 @@ function WelcomeScreen(props) {
           source={require("../assets/logo.png")}
         />
         <View style={styles.container}>
-          <AppButton title="Login" color="black" textStyle={styles.loginText} />
+          <AppButton
+            title="Login"
+            color="black"
+            textStyle={styles.loginText}
+            onPress={() => navigation.navigate("Login")}
+          />
           <AppButton
             title="Register"
             style={styles.register}
             textStyle={styles.registerText}
+            onPress={() => navigation.navigate(routes.REGISTER)}
           />
         </View>
       </ImageBackground>

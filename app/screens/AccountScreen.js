@@ -19,12 +19,13 @@ const menuItems = [
       name: "email",
       backgroundColor: colors.secondary,
     },
+    targetScreen: "Messages",
   },
 ];
 
-function AccountScreen(props) {
+function AccountScreen({ navigation }) {
   return (
-    <Screen style={styles.screen}>
+    <View style={styles.screen}>
       <View style={styles.container}>
         <ListItem
           title="jonel ignacio"
@@ -45,6 +46,7 @@ function AccountScreen(props) {
                   backgroundColor={item.icon.backgroundColor}
                 />
               }
+              onPress={() => navigation.navigate(item.targetScreen)}
             />
           )}
         />
@@ -53,12 +55,13 @@ function AccountScreen(props) {
         title="log out"
         IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
       />
-    </Screen>
+    </View>
   );
 }
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.light,
+    flex: 1,
   },
   container: {
     marginVertical: 20,

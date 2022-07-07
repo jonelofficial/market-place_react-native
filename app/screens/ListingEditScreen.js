@@ -37,6 +37,7 @@ function ListingEditScreen(props) {
   const { reset } = methods;
 
   const onSubmit = (data) => {
+    console.log(location);
     console.log(data);
     setCategory(null);
     reset();
