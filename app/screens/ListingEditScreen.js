@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { StyleSheet } from "react-native";
 
 import AppButton from "../components/AppButton";
 import FormField from "../components/forms/FormField";
@@ -44,7 +45,7 @@ function ListingEditScreen(props) {
   };
 
   return (
-    <Screen>
+    <Screen style={styles.screen}>
       <FormProvider {...methods} onSubmit={onSubmit}>
         <FormImagePicker name="images" />
 
@@ -80,5 +81,10 @@ function ListingEditScreen(props) {
     </Screen>
   );
 }
+const styles = StyleSheet.create({
+  screen: {
+    padding: 10,
+  },
+});
 
 export default ListingEditScreen;

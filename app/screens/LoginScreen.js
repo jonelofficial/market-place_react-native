@@ -45,143 +45,129 @@ function LoginScreen(props) {
       enabled={false}
     >
       <Screen style={styles.screen}>
-        <ImageBackground
-          source={require("../assets/ImgBg.jpg")}
-          resizeMode="cover"
-          style={styles.image}
-        >
-          <View style={styles.overlay} />
+        <View style={styles.container}>
+          <AppHeading style={{ color: defaultStyle.colors.black }}>
+            Welcome
+          </AppHeading>
+          <AppText style={styles.subtext}>
+            Don't have an account?{" "}
+            <AppText style={styles.subtextLink}>Register now</AppText>
+          </AppText>
 
-          <Image
-            resizeMode="contain"
-            style={styles.logo}
-            source={require("../assets/logo.png")}
-          />
-
-          <View style={styles.container}>
-            <AppHeading style={{ color: defaultStyle.colors.black }}>
-              Welcome
-            </AppHeading>
-            <AppText style={styles.subtext}>
-              Don't have an account?{" "}
-              <AppText style={styles.subtextLink}>Register now</AppText>
-            </AppText>
-
-            <View style={styles.form}>
-              <FormProvider {...methods} onSubmit={onSubmit}>
-                <AppText style={styles.subtext}>Email</AppText>
-                <FormField
-                  name="email"
-                  style={styles.input}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  keyboardType="email-address"
-                  textContentType="emailAddress" // for Ios
-                />
-
-                <Spacer style={{ height: 20 }} />
-
-                <AppText style={styles.subtext}>Password</AppText>
-                <FormField
-                  name="password"
-                  style={styles.input}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  textContentType="password" // for Ios
-                  secureTextEntry
-                />
-
-                <Spacer style={{ height: 20 }} />
-
-                <View style={styles.checkboxWrapper}>
-                  <FormCheckbox title="Remember me" name="rememberLogin" />
-                  <View style={styles.forgotPassword}>
-                    <AppText style={styles.subtext}>Forgot password</AppText>
-                  </View>
-                </View>
-
-                <Spacer />
-
-                <SubmitButton
-                  title="Login"
-                  color="black"
-                  style={{
-                    width: "70%",
-                    elevation: 2,
-                  }}
-                />
-              </FormProvider>
-
-              <Spacer />
-
-              <AppText style={styles.subtextDark}>or Login with</AppText>
+          <View style={styles.form}>
+            <FormProvider {...methods} onSubmit={onSubmit}>
+              <AppText style={styles.subtext}>Email</AppText>
+              <FormField
+                name="email"
+                style={styles.input}
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="email-address"
+                textContentType="emailAddress" // for Ios
+              />
 
               <Spacer style={{ height: 20 }} />
 
-              <View style={styles.socWrapper}>
-                <TouchableOpacity>
-                  <View
-                    style={{
-                      backgroundColor: "#4267B2",
-                      paddingHorizontal: 8,
-                      paddingVertical: 3,
-                      borderRadius: 20,
-                      marginHorizontal: 15,
-                      elevation: 2,
-                    }}
-                  >
-                    <Icon
-                      name="facebook"
-                      backgroundColor="transparent"
-                      iconColor="#fff"
-                      size={30}
-                    />
-                  </View>
-                </TouchableOpacity>
+              <AppText style={styles.subtext}>Password</AppText>
+              <FormField
+                name="password"
+                style={styles.input}
+                autoCapitalize="none"
+                autoCorrect={false}
+                textContentType="password" // for Ios
+                secureTextEntry
+              />
 
-                <TouchableOpacity>
-                  <View
-                    style={{
-                      backgroundColor: "#00acee",
-                      paddingHorizontal: 8,
-                      paddingVertical: 3,
-                      borderRadius: 20,
-                      marginHorizontal: 15,
-                      elevation: 2,
-                    }}
-                  >
-                    <Icon
-                      name="twitter"
-                      backgroundColor="transparent"
-                      iconColor="#fff"
-                      size={30}
-                    />
-                  </View>
-                </TouchableOpacity>
+              <Spacer style={{ height: 20 }} />
 
-                <TouchableOpacity>
-                  <View
-                    style={{
-                      backgroundColor: "#db4a39",
-                      paddingHorizontal: 8,
-                      paddingVertical: 3,
-                      borderRadius: 20,
-                      marginHorizontal: 15,
-                      elevation: 2,
-                    }}
-                  >
-                    <Icon
-                      name="google-plus"
-                      backgroundColor="transparent"
-                      iconColor="#fff"
-                      size={30}
-                    />
-                  </View>
-                </TouchableOpacity>
+              <View style={styles.checkboxWrapper}>
+                <FormCheckbox title="Remember me" name="rememberLogin" />
+                <View style={styles.forgotPassword}>
+                  <AppText style={styles.subtext}>Forgot password</AppText>
+                </View>
               </View>
+
+              <Spacer />
+
+              <SubmitButton
+                title="Login"
+                color="black"
+                style={{
+                  width: "70%",
+                  elevation: 2,
+                }}
+              />
+            </FormProvider>
+
+            <Spacer />
+
+            <AppText style={styles.subtextDark}>or Login with</AppText>
+
+            <Spacer style={{ height: 20 }} />
+
+            <View style={styles.socWrapper}>
+              <TouchableOpacity>
+                <View
+                  style={{
+                    backgroundColor: "#4267B2",
+                    paddingHorizontal: 8,
+                    paddingVertical: 3,
+                    borderRadius: 20,
+                    marginHorizontal: 15,
+                    elevation: 2,
+                  }}
+                >
+                  <Icon
+                    name="facebook"
+                    backgroundColor="transparent"
+                    iconColor="#fff"
+                    size={30}
+                  />
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity>
+                <View
+                  style={{
+                    backgroundColor: "#00acee",
+                    paddingHorizontal: 8,
+                    paddingVertical: 3,
+                    borderRadius: 20,
+                    marginHorizontal: 15,
+                    elevation: 2,
+                  }}
+                >
+                  <Icon
+                    name="twitter"
+                    backgroundColor="transparent"
+                    iconColor="#fff"
+                    size={30}
+                  />
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity>
+                <View
+                  style={{
+                    backgroundColor: "#db4a39",
+                    paddingHorizontal: 8,
+                    paddingVertical: 3,
+                    borderRadius: 20,
+                    marginHorizontal: 15,
+                    elevation: 2,
+                  }}
+                >
+                  <Icon
+                    name="google-plus"
+                    backgroundColor="transparent"
+                    iconColor="#fff"
+                    size={30}
+                  />
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
-        </ImageBackground>
+        </View>
       </Screen>
     </KeyboardAvoidingView>
   );

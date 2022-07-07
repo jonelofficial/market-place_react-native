@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     bottom: 30,
     borderColor: colors.white,
     borderWidth: 10,
+    elevation: 2,
 
     alignItems: "center",
     justifyContent: "center",
