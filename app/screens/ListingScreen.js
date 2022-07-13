@@ -1,34 +1,48 @@
-import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, StyleSheet } from "react-native";
+
+import listingApi from "../api/listings";
+import AppText from "../components/AppText";
+import AppButton from "../components/AppButton";
 import Card from "../components/Card";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import routes from "../navigation/routes";
-
-const listings = [
-  {
-    id: 1,
-    title: "J1 High Mocha",
-    subTitle: "$100",
-    image: require("../assets/products/Mocha.jpg"),
-  },
-  {
-    id: 2,
-    title: "J1 High X off-white",
-    subTitle: "$200",
-    image: require("../assets/products/Offwhite.jpg"),
-  },
-  {
-    id: 3,
-    title: "J1 High Retro Court Purple",
-    subTitle: "$300",
-    image: require("../assets/products/Purple.jpg"),
-  },
-];
+import ActivityIndicator from "../components/ActivityIndicator";
+import useApi from "../hooks/useApi";
+import OfflineNotice from "../components/OfflineNotice";
 
 function ListingScreen({ navigation }) {
+  const {
+    request: loadListings,
+    data: listings,
+    error,
+    loading,
+  } = useApi(listingApi.getListings);
+
+  useEffect(() => {
+    loadListings();
+  }, []);
+
   return (
     <Screen style={styles.screen}>
+      {error && (
+        <>
+          <AppText style={{ textAlign: "center" }}>
+            No internet connection
+          </AppText>
+          <AppButton title="Retry" onPress={loadListings} />
+        </>
+      )}
+      <ActivityIndicator visible={loading} />
+      {/* {loading && (
+        <ActivityIndicator
+          animating={loading}
+          size={"large"}
+          color={colors.primary}
+          style={{ flex: 1 }}
+        />
+      )} */}
       <FlatList
         data={listings}
         keyExtractor={(listings) => listings.id.toString()}
@@ -36,7 +50,8 @@ function ListingScreen({ navigation }) {
           <Card
             title={item.title}
             subTitle={item.subTitle}
-            image={item.image}
+            imageUrl={item.images[0].url}
+            thumbnailUrl={item.images[0].thumbnailUrl}
             onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
           />
         )}
@@ -48,7 +63,7 @@ function ListingScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.light,
-    paddingHorizontal: 15,
+    margin: 0,
   },
 });
 

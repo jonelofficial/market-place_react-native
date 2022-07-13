@@ -13,13 +13,14 @@ function FormImagePicker({ name }) {
   } = useFormContext();
 
   const handleAdd = (uri, value) => {
-    setValue(name, [...value, uri]);
+    // setValue(name, [...value, uri]);
+    setValue(name, [...value, { uri }]);
     clearErrors(name);
   };
   const handleRemove = (uri, value) => {
     setValue(
       name,
-      value.filter((imageUri) => imageUri !== uri)
+      value.filter((imageUri) => imageUri.uri !== uri)
     );
   };
   return (

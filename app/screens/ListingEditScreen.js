@@ -10,7 +10,10 @@ import FormPicker from "../components/forms/FormPicker";
 import SubmitButton from "../components/forms/SubmitButton";
 import Screen from "../components/Screen";
 import { listingEditSchema } from "../config/schema";
+import listingApi from "../api/listings";
 import useLocation from "../hooks/useLocation";
+import routes from "../navigation/routes";
+import UploadScreen from "./UploadScreen";
 
 const categories = [
   { label: "Furniture", value: 1 },
@@ -18,12 +21,15 @@ const categories = [
   { label: "Camera", value: 3 },
 ];
 
-function ListingEditScreen(props) {
-  const location = useLocation();
+function ListingEditScreen({ navigation }) {
+  const location = useLocation(); // Get location a custom hook
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
 
+  // Method for fom
   const methods = useForm({
     resolver: yupResolver(listingEditSchema),
-    mode: "onTouched",
+    mode: "onSubmit",
     defaultValues: {
       title: "",
       price: "",
@@ -36,16 +42,34 @@ function ListingEditScreen(props) {
   const [category, setCategory] = useState();
 
   const { reset } = methods;
+  // End
 
-  const onSubmit = (data) => {
-    console.log(location);
-    console.log(data);
-    setCategory(null);
-    reset();
+  // Handle submit on form
+  const onSubmit = async (listing) => {
+    setProgress(0);
+    setUploadVisible(true);
+    const result = await listingApi.addListing(
+      { ...listing, location },
+      (progress) => setProgress(progress)
+    );
+
+    if (!result.ok) {
+      setUploadVisible(false);
+      return alert("Could not save the listings: Max image file 3");
+    } else {
+      setCategory(null);
+      reset();
+    }
   };
+  // End
 
   return (
     <Screen style={styles.screen}>
+      <UploadScreen
+        onDone={() => setUploadVisible(false)}
+        progress={progress}
+        visible={uploadVisible}
+      />
       <FormProvider {...methods} onSubmit={onSubmit}>
         <FormImagePicker name="images" />
 

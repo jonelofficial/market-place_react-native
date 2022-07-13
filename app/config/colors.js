@@ -3,7 +3,10 @@ export default {
   primary: "#4630EB",
   // secondary: "#4ecdc4",
   secondary: "#fc5c65",
-  danger: "red",
+
+  danger: "#f56565",
+  warning: "#eed202",
+  success: "#48bb78",
 
   black: "#000",
   dark: "#0c0c0c",

@@ -10,7 +10,7 @@ export default {
   colors,
   text: {
     color: colors.dark,
-    width: "100%",
+    // width: "100%",
     ...Platform.select({
       ios: {
         fontSize: 20,

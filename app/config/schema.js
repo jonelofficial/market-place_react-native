@@ -9,6 +9,7 @@ export const listingEditSchema = Yup.object().shape({
   category: Yup.object().nullable().required().label("Category"),
   description: Yup.string().required().label("Description"),
   images: Yup.array().min(1, "Please select at least one image"),
+  // images: Yup.object().nullable().required().label("Images"),
 });
 
 export const registerSchema = Yup.object().shape({

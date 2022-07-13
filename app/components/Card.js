@@ -1,20 +1,22 @@
 import React from "react";
-import {
-  Image,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { StyleSheet, TouchableWithoutFeedback, View } from "react-native";
+import { Image } from "react-native-expo-image-cache";
+
 import colors from "../config/colors";
 import AppHeading from "./AppHeading";
 import AppText from "./AppText";
 import Spacer from "./Spacer";
 
-function Card({ image, title, subTitle, onPress }) {
+function Card({ imageUrl, title, subTitle, onPress, thumbnailUrl }) {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
-        <Image style={styles.image} source={image} />
+        <Image
+          tint="light"
+          style={styles.image}
+          preview={{ uri: thumbnailUrl }}
+          uri={imageUrl}
+        />
         <View style={styles.details}>
           <AppHeading style={styles.title} size="h3">
             {title}
@@ -32,6 +34,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: "hidden",
     marginVertical: 10,
+    marginHorizontal: 20,
   },
   image: {
     width: "100%",
