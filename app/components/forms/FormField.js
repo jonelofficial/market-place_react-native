@@ -31,7 +31,7 @@ function FormField({ name, icon, style, textStyle, ...otherProps }) {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              style={[defaultStyle.text, textStyle]}
+              style={[styles.form, defaultStyle.text, textStyle]}
               {...otherProps}
             />
           )}
@@ -58,6 +58,9 @@ const styles = StyleSheet.create({
   errorBox: {
     borderWidth: 2,
     borderColor: defaultStyle.colors.danger,
+  },
+  form: {
+    width: "100%",
   },
 });
 

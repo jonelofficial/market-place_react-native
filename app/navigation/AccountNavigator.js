@@ -9,13 +9,16 @@ const Stack = createNativeStackNavigator();
 const AccountNavigator = () => (
   <Stack.Navigator
     screenOptions={{
-      animation: "slide_from_bottom",
       headerTitleAlign: "center",
       presentation: "modal",
     }}
   >
     <Stack.Screen name="Account Details" component={AccountScreen} />
-    <Stack.Screen name="Messages" component={MessagesScreen} />
+    <Stack.Screen
+      name="Messages"
+      component={MessagesScreen}
+      options={{ animation: "slide_from_right" }}
+    />
   </Stack.Navigator>
 );
 

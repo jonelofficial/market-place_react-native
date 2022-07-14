@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 import colors from "../../config/colors";
 import AppText from "../AppText";
 
-function ErrorMessage({ message }) {
-  return <AppText style={styles.error}>{message}</AppText>;
+function ErrorMessage({ message, style }) {
+  return <AppText style={[styles.error, style]}>{message}</AppText>;
 }
 
 const styles = StyleSheet.create({

@@ -1,34 +1,43 @@
-import React from "react";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useEffect, useState } from "react";
+import * as SplashScreen from "expo-splash-screen";
 import { NavigationContainer } from "@react-navigation/native";
-import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
+import { LogBox } from "react-native";
 
 import AppNavigator from "./app/navigation/AppNavigator";
 import AuthNavigation from "./app/navigation/AuthNavigation";
+import AuthContext from "./app/auth/context";
+import authStorage from "./app/auth/storage";
 import navigationTheme from "./app/navigation/navigationTheme";
-
-// import { LogBox } from "react-native";
-
-// // Ignore log notification by message:
-// LogBox.ignoreLogs(["Warning: ..."]);
-
-// // Ignore all log notifications:
-// LogBox.ignoreAllLogs();
-
-import { LogBox } from "react-native";
 import OfflineNotice from "./app/components/OfflineNotice";
 
 LogBox.ignoreLogs(["exported from 'deprecated-react-native-prop-types'."]);
 
 export default function App() {
-  // const netInfo = useNetInfo();
-  // console.log(netInfo);
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    restoreUser();
+  }, []);
+
+  const restoreUser = async () => {
+    try {
+      SplashScreen.preventAutoHideAsync();
+
+      const user = await authStorage.getUser();
+      if (user) setUser(user);
+    } catch (e) {
+      console.warn(e);
+    } finally {
+      SplashScreen.hideAsync();
+    }
+  };
+
   return (
-    <>
+    <AuthContext.Provider value={{ user, setUser }}>
       <OfflineNotice />
       <NavigationContainer theme={navigationTheme}>
-        <AppNavigator />
+        {user ? <AppNavigator /> : <AuthNavigation />}
       </NavigationContainer>
-    </>
+    </AuthContext.Provider>
   );
 }

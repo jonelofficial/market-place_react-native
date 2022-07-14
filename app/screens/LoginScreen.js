@@ -1,8 +1,7 @@
+import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormProvider, useForm } from "react-hook-form";
 import {
-  Image,
-  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -10,18 +9,24 @@ import {
   View,
 } from "react-native";
 
-import FormCheckbox from "../components/forms/FormCheckbox";
+import { loginSchema } from "../config/schema";
 import AppHeading from "../components/AppHeading";
 import AppText from "../components/AppText";
+import authApi from "../api/auth";
+import defaultStyle from "../config/styles";
+import ErrorMessage from "../components/forms/ErrorMessage";
+import FormCheckbox from "../components/forms/FormCheckbox";
 import FormField from "../components/forms/FormField";
-import SubmitButton from "../components/forms/SubmitButton";
 import Icon from "../components/Icon";
+import SubmitButton from "../components/forms/SubmitButton";
 import Screen from "../components/Screen";
 import Spacer from "../components/Spacer";
-import { loginSchema } from "../config/schema";
-import defaultStyle from "../config/styles";
+import useAuth from "../auth/useAuth";
 
 function LoginScreen(props) {
+  const { logIn } = useAuth();
+  const [loginFailed, setLoginFailed] = useState(false);
+
   const methods = useForm({
     resolver: yupResolver(loginSchema),
     mode: "onTouched",
@@ -34,8 +39,12 @@ function LoginScreen(props) {
 
   const { reset } = methods;
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async ({ email, password }) => {
+    const result = await authApi.login(email, password);
+    if (!result.ok) return setLoginFailed(true);
+
+    logIn(result.data);
+    setLoginFailed(false);
     reset();
   };
   return (
@@ -55,6 +64,15 @@ function LoginScreen(props) {
           </AppText>
 
           <View style={styles.form}>
+            <ErrorMessage
+              style={{
+                marginLeft: 0,
+                fontSize: 16,
+                textAlign: "center",
+                display: loginFailed ? undefined : "none",
+              }}
+              message="Invalid email and/or password."
+            />
             <FormProvider {...methods} onSubmit={onSubmit}>
               <AppText style={styles.subtext}>Email</AppText>
               <FormField

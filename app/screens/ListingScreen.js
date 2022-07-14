@@ -35,14 +35,7 @@ function ListingScreen({ navigation }) {
         </>
       )}
       <ActivityIndicator visible={loading} />
-      {/* {loading && (
-        <ActivityIndicator
-          animating={loading}
-          size={"large"}
-          color={colors.primary}
-          style={{ flex: 1 }}
-        />
-      )} */}
+
       <FlatList
         data={listings}
         keyExtractor={(listings) => listings.id.toString()}

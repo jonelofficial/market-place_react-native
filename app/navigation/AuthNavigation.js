@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 const AuthNavigator = () => (
   <Stack.Navigator
     screenOptions={{
-      animation: "slide_from_bottom",
+      animation: "none",
       presentation: "transparentModal",
       headerTitleAlign: "center",
     }}
@@ -23,9 +23,13 @@ const AuthNavigator = () => (
     <Stack.Screen
       name="Login"
       component={LoginScreen}
-      options={{ headerShown: false }}
+      options={{ headerShown: false, animation: "slide_from_bottom" }}
     />
-    <Stack.Screen name="Register" component={RegisterScreen} />
+    <Stack.Screen
+      name="Register"
+      component={RegisterScreen}
+      options={{ animation: "slide_from_bottom" }}
+    />
   </Stack.Navigator>
 );
 
