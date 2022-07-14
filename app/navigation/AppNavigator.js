@@ -2,16 +2,25 @@ import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Notifications from "expo-notifications";
-// import { Notifications } from "expo";
 
+import expoPushTokenApi from "../api/expoPushToken";
 import ListingEditScreen from "../screens/ListingEditScreen";
 import FeedNavigator from "./FeedNavigator";
 import AccountNavigator from "./AccountNavigator";
 import NewListingButton from "./NewListingButton";
 import routes from "./routes";
 import { KeyboardAvoidingView, Platform } from "react-native";
+import navigation from "./rootNavigation";
 
 const Tab = createBottomTabNavigator();
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 const AppNavigator = () => {
   const registerForPushNotifications = async () => {
@@ -20,15 +29,22 @@ const AppNavigator = () => {
 
     try {
       const token = await Notifications.getExpoPushTokenAsync();
-      console.log(token);
+      console.log(token.data);
+      expoPushTokenApi.register(token.data);
     } catch (error) {
       console.log(error);
     }
   };
+  const handleNotification = (notif) => {
+    navigation.navigate("Account");
+  };
 
   useEffect(() => {
     registerForPushNotifications();
+
+    Notifications.addNotificationResponseReceivedListener(handleNotification);
   }, []);
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}

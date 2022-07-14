@@ -9,6 +9,7 @@ import AuthContext from "./app/auth/context";
 import authStorage from "./app/auth/storage";
 import navigationTheme from "./app/navigation/navigationTheme";
 import OfflineNotice from "./app/components/OfflineNotice";
+import { navigationRef } from "./app/navigation/rootNavigation";
 
 LogBox.ignoreLogs(["exported from 'deprecated-react-native-prop-types'."]);
 
@@ -35,7 +36,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <OfflineNotice />
-      <NavigationContainer theme={navigationTheme}>
+      <NavigationContainer ref={navigationRef} theme={navigationTheme}>
         {user ? <AppNavigator /> : <AuthNavigation />}
       </NavigationContainer>
     </AuthContext.Provider>
