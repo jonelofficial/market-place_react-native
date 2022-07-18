@@ -10,10 +10,14 @@ import authStorage from "./app/auth/storage";
 import navigationTheme from "./app/navigation/navigationTheme";
 import OfflineNotice from "./app/components/OfflineNotice";
 import { navigationRef } from "./app/navigation/rootNavigation";
+import logger from "./app/utility/logger";
 
 LogBox.ignoreLogs(["exported from 'deprecated-react-native-prop-types'."]);
 
+logger.start();
+
 export default function App() {
+  logger.log(new Error("Error in app"));
   const [user, setUser] = useState();
 
   useEffect(() => {

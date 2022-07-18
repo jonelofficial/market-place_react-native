@@ -10,6 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@bugsnag/expo": "^45.0.0",
     "@hookform/resolvers": "^2.9.1",
     "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-native-community/checkbox": "^0.5.12",
@@ -18,6 +19,7 @@
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
     "apisauce": "^2.1.5",
+    "bugsnag-expo-cli": "^45.0.0",
     "dayjs": "^1.11.3",
     "expo": "~45.0.0",
     "expo-app-loading": "~2.0.0",
@@ -31,6 +33,7 @@
     "expo-secure-store": "~11.2.0",
     "expo-splash-screen": "~0.15.1",
     "expo-status-bar": "~1.3.0",
+    "expo-updates": "~0.13.3",
     "formik": "^2.2.9",
     "jwt-decode": "^3.1.2",
     "lottie-react-native": "5.0.1",
